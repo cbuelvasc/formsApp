@@ -1,0 +1,93 @@
+<h2>Reactive: <small>Dinamics</small></h2>
+<hr />
+
+<form (ngSubmit)="save()" autocomplete="off" [formGroup]="myForm">
+  <!-- Name -->
+  <div class="mb-3 row">
+    <label class="col-sm-3 col-form-label">Name</label>
+    <div class="col-sm-9">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Person name"
+        formControlName="name"
+      />
+
+      <span class="form-text text-danger" *ngIf="isFieldValid('name')">
+        The name must contain at least 3 letters
+      </span>
+    </div>
+  </div>
+
+  <!-- Add -->
+  <div class="mb-3 row">
+    <label class="col-sm-3 col-form-label">Add</label>
+    <div class="col-sm-9">
+      <div class="input-group">
+        <input
+          type="text"
+          class="form-control"
+          [formControl]="newFavorite"
+          placeholder="Add favorite game"
+          (keyup.enter)="addFavorite()"
+        />
+
+        <button
+          class="btn btn-outline-primary"
+          type="button"
+          (click)="addFavorite()"
+        >
+          Add
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- List favorite games -->
+  <div class="mb-3 row">
+    <label class="col-sm-3 col-form-label">Name</label>
+
+    <div class="col-sm-9" formArrayName="favorites">
+      <div
+        class="input-group mb-1"
+        *ngFor="let favorite of favorites.controls; let i = index"
+      >
+        <input class="form-control" type="text" [formControlName]="i" />
+
+        <button
+          class="btn btn-outline-danger"
+          type="button"
+          (click)="delete(i)"
+        >
+          Delete
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-12">
+      <button type="submit" class="btn btn-primary float-end">Save</button>
+    </div>
+  </div>
+</form>
+
+<div class="row">
+  <div class="col">
+    <span>Valid</span>
+    <pre>{{ myForm.valid }}</pre>
+
+    <span>Pristine</span>
+    <pre>{{ myForm.pristine }}</pre>
+
+    <span>Touched</span>
+    <pre>{{ myForm.touched }}</pre>
+
+    <span>Value</span>
+    <pre>{{ myForm.value | json }}</pre>
+
+    <span>Add game</span>
+    <pre>{{ newFavorite.valid }}</pre>
+    <pre>{{ newFavorite.value }}</pre>
+  </div>
+</div>

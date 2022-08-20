@@ -1,0 +1,137 @@
+<h2>Reactive Validations</h2>
+<hr />
+
+<div class="row">
+  <div class="col">
+    <!-- Form -->
+    <form [formGroup]="myForm" (ngSubmit)="save()" autocomplete="off">
+      <!-- User name -->
+      <div class="row mb-3">
+        <label class="col-sm-3 col-form-label">Name</label>
+        <div class="col-sm-9">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="User name"
+            formControlName="name"
+          />
+          <span class="form-text text-danger" *ngIf="isFieldValid('name')">
+            Name is required
+          </span>
+        </div>
+      </div>
+
+      <!-- User email -->
+      <div class="row mb-3">
+        <label class="col-sm-3 col-form-label">Email</label>
+        <div class="col-sm-9">
+          <input
+            type="email"
+            class="form-control"
+            placeholder="User email"
+            formControlName="email"
+          />
+          <span class="form-text text-danger" *ngIf="isFieldValid('email')">
+            {{ emailErrorMessage }}
+          </span>
+          <!-- <span class="form-text text-danger" *ngIf="emailRequired()">
+            Email is requiered
+          </span>
+          <span class="form-text text-danger" *ngIf="emailPattern()">
+            Email is not a format requiered
+          </span>
+          <span class="form-text text-danger" *ngIf="emailExist()">
+            Email exist
+          </span> -->
+        </div>
+      </div>
+
+      <!-- Username -->
+      <div class="row mb-3">
+        <label class="col-sm-3 col-form-label">Username</label>
+        <div class="col-sm-9">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Username"
+            formControlName="username"
+          />
+          <span class="form-text text-danger" *ngIf="isFieldValid('username')"
+            >Username can not be Strider</span
+          >
+        </div>
+      </div>
+
+      <!-- Password -->
+      <div class="row mb-3">
+        <label class="col-sm-3 col-form-label">Password</label>
+        <div class="col-sm-9">
+          <input
+            type="password"
+            class="form-control"
+            formControlName="password"
+            placeholder="Password"
+          />
+          <span class="form-text text-danger" *ngIf="isFieldValid('password')">
+            Password must be longer than 6 characters
+          </span>
+        </div>
+      </div>
+
+      <!-- Confir password -->
+      <div class="row mb-3">
+        <label class="col-sm-3 col-form-label">Confirm Password</label>
+        <div class="col-sm-9">
+          <input
+            type="password"
+            class="form-control"
+            formControlName="confirmPassword"
+            placeholder="Confirm password"
+          />
+          <span
+            class="form-text text-danger"
+            *ngIf="isFieldValid('confirmPassword')"
+          >
+            Passwords must be the same
+          </span>
+        </div>
+      </div>
+
+      <!-- Button -->
+      <div class="row">
+        <div class="col">
+          <button
+            class="btn btn-primary float-end"
+            type="submit"
+            [disabled]="myForm.pending"
+          >
+            Save
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<h2>Form Vaild: {{ myForm.valid }}</h2>
+
+<h2>Form Status: {{ myForm.status }}</h2>
+<h2>Form Pendind: {{ myForm.pending }}</h2>
+
+<h2>Form Errors</h2>
+<pre>{{ myForm.errors | json }}</pre>
+
+<h2>Name</h2>
+<pre>{{ myForm.controls?.['name']?.errors| json }}</pre>
+
+<h2>Email</h2>
+<pre>{{ myForm.controls?.['email']?.errors| json }}</pre>
+
+<h2>Username</h2>
+<pre>{{ myForm.controls?.['username']?.errors| json }}</pre>
+
+<h2>Password</h2>
+<pre>{{ myForm.controls?.['password']?.errors| json }}</pre>
+
+<h2>Confirm Password</h2>
+<pre>{{ myForm.controls?.['confirmPassword']?.errors| json }}</pre>
